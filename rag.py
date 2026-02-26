@@ -26,11 +26,14 @@ max_hist=5
 def get_history(session_id):
     if session_id not in session_hist:
         session_hist[session_id]=ChatMessageHistory()
-    return session_hist[session_id]
-def prune_hist(session_id):
-    history=session_hist[session_id]
+    history = session_hist[session_id]
     if len(history.messages)>max_hist:
         history.messages=history.messages[-max_hist:]
+    return session_hist[session_id]
+# def prune_hist(session_id):
+#     history=session_hist[session_id]
+#     if len(history.messages)>max_hist:
+#         history.messages=history.messages[-max_hist:]
 def getretriever_docs(docs):
     print("docs included")
     for i, d in  enumerate(docs):
@@ -63,7 +66,7 @@ response = chain_with_memory.invoke(
    {"question":"What is this document about?"},#this is beacuse our starting is runnable parallel so we need dict as input 
     config={"configurable": {"session_id": "user1"}}
 )
-
+# prune_hist("user1")
 # print(response.content) this for when we have actual model
 print(response)
 
