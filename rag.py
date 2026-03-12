@@ -22,6 +22,7 @@ embeddings=HuggingFaceEmbeddings(
     model_kwargs={"device": "cpu"},
 )
 vectorstore=FAISS.from_documents(chunks,embeddings)
+vectorstore.save_local("faiss_index")
 retriver=vectorstore.as_retriever(search_kwargs={"k":3})
 session_hist={}
 max_hist=3
